@@ -44,7 +44,7 @@ This project tests whether a convolutional neural network can learn that decisio
 | Train / validation / test split | 70 / 15 / 15, stratified by label |
 | Random seed | 42 |
 
-**Patient-level splitting:** If `PATIENT_ID_PATTERN` is set in `train.py`, the split uses `StratifiedGroupKFold` so that all scans from one patient land in the same split. This prevents the model from being validated or tested on near-duplicate scans of patients it was trained on.
+**Patient-level splitting:** If `PATIENT_ID_PATTERN` is set in `DME_OCT.py`, the split uses `StratifiedGroupKFold` so that all scans from one patient land in the same split. This prevents the model from being validated or tested on near-duplicate scans of patients it was trained on.
 
 **Evaluation:** Validation loss, ROC AUC (using the predicted probability of the "Stop Injection" class), and a confusion matrix are computed after every epoch. The checkpoint with the best validation AUC is saved and evaluated once on the held-out test set at the end of training.
 
@@ -66,7 +66,7 @@ This project tests whether a convolutional neural network can learn that decisio
 
 ```
 .
-├── train.py                       # Data loading, preprocessing, training, and evaluation
+├── DME_OCT.py                       # Data loading, preprocessing, training, and evaluation
 ├── requirements.txt
 ├── results/
 │   └── training_summary.png       # Loss and AUC curves from the original 25-epoch run
@@ -89,7 +89,7 @@ The DME dataset used in this project is **not included** in this repository. The
 └── Stop Injection/       *.jpg / *.jpeg / *.png
 ```
 
-The class label is taken from the folder name. By default the script reads from `data/train`. To point it somewhere else, set the `DME_DATA_DIR` environment variable or edit `DATA_DIR` in `train.py`.
+The class label is taken from the folder name. By default the script reads from `data/DME_OCT`. To point it somewhere else, set the `DME_DATA_DIR` environment variable or edit `DATA_DIR` in `DME_OCT.py`.
 
 If your file names contain a patient ID, set `PATIENT_ID_PATTERN` to a regular expression whose first capture group is that ID. For example, for files named `P012_OD_scan3.jpg`:
 
@@ -103,14 +103,14 @@ PATIENT_ID_PATTERN = r"^(P\d+)_"
 git clone https://github.com/<your-username>/dme-oct.git
 cd dme-oct
 pip install -r requirements.txt
-DME_DATA_DIR="path/to/data" python train.py
+DME_DATA_DIR="path/to/data" python DME_OCT.py
 ```
 
 On Windows PowerShell:
 
 ```powershell
 $env:DME_DATA_DIR = "C:\path\to\data"
-python train.py
+python DME_OCT.py
 ```
 
 The script is organized into `# %%` cells, so it can also be run cell by cell in VS Code or Spyder. A CUDA GPU is used automatically if available.
