@@ -4,7 +4,7 @@ A deep learning model that classifies retinal OCT scans from patients with diabe
 
 This project was developed at **Olmeda Biosciences**.
 
-![Training summary](results/training_summary.png)
+![Training summary](training_summary.png)
 
 ## Background
 
